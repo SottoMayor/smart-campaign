@@ -1,9 +1,17 @@
 pragma solidity ^0.4.17;
 
 contract Campaign {
+    struct Request {
+        string description;
+        uint value;
+        address recipient;
+        bool complete;
+    }
+
     address public manager;
     uint public minimumAmount;
     address[] public approvers;
+    Request[] public requests;
 
     // Once someone raise the contract, we want to... 
     function Campaign (uint minimum) {
