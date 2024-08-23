@@ -37,4 +37,19 @@ contract Campaign {
         // Add the address of the donator into the approvers list.
         approvers.push(msg.sender);
     }
+
+    // Once the manager (and only the manager) creates a request, he want to...
+    function createRequest(string description, uint value, address recipient)
+        public modifier {
+            // create a request
+            Request newRequest = Request({
+                description: description,
+                value: value,
+                recipient: recipient,
+                complete: false
+            });
+
+            // put this new request in the list of requests
+            requests.push(newRequest);
+    }
 }
