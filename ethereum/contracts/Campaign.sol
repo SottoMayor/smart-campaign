@@ -13,6 +13,14 @@ contract Campaign {
     address[] public approvers;
     Request[] public requests;
 
+    // Modifiers should be defined above the constructor, as a convention...
+
+    // Only managers can access function with this modifier.
+    modifier restricted () {
+        require(manager === msg.sender);
+        _;
+    }
+
     // Once someone raise the contract, we want to... 
     function Campaign (uint minimum) {
         // define who is the contract owner
