@@ -41,8 +41,9 @@ contract Campaign {
     // Once the manager (and only the manager) creates a request, he want to...
     function createRequest(string description, uint value, address recipient)
         public modifier {
-            // create a request
-            Request newRequest = Request({
+            // create a request 
+            // OBS: It must be marked as memory because this function is creating a data structure available only on memory
+            Request memory newRequest = Request({
                 description: description,
                 value: value,
                 recipient: recipient,
