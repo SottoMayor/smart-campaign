@@ -10,7 +10,7 @@ contract Campaign {
 
     address public manager;
     uint public minimumAmount;
-    address[] public approvers;
+    mapping(address => bool) public approvers;
     Request[] public requests;
 
     // Modifiers should be defined above the constructor, as a convention...
@@ -34,8 +34,9 @@ contract Campaign {
         // Check if the incomming amount is grather than the minimum amount
         require(msg.value > minimumAmount);
 
-        // Add the address of the donator into the approvers list.
-        approvers.push(msg.sender);
+        // Include the address in the mapping of approvers.
+        /// BTW, we are using mapping stead of array because this approach is cheaper.
+        approvers[msg.sender] = true;
     }
 
     // Once the manager (and only the manager) creates a request, he want to...
