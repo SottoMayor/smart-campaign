@@ -3,6 +3,14 @@ pragma solidity ^0.4.17;
 contract CampaignFactory {
     address[] public deployedCampaigns;
 
+    function createCampaign(uint minimum) public {
+        // Instanciate the Campaign contract
+        address newCampaign = new Campaign(minimum, msg.sender);
+
+        // Adding the address of this instance inside the deployedCampaigns array
+        deployedCampaigns.push(newCampaign);
+    }
+
     function getDeployedCampaigns() public view returns (address[]) {
         return deployedCampaigns;
     }
@@ -34,9 +42,9 @@ contract Campaign {
     }
 
     // Once someone raise the contract, we want to... 
-    function Campaign (uint minimum) {
+    function Campaign (uint minimum, address creator) {
         // define who is the contract owner
-        manager = msg.sender;
+        manager = creator;
         // define the minimum amount to contribute
         minimumAmount = minimum;
     }
