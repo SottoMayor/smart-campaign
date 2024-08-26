@@ -57,4 +57,19 @@ contract Campaign {
             // put this new request in the list of requests
             requests.push(newRequest);
     }
+
+    // Once someone wants to approve a request...
+    function approveRequest(uint index) public {
+        Request storage request = requests[index];
+
+        // The address should be inside the mapping that controls the contributors
+        require(approvers[msg.sender]);
+        // The address should not vote again in the same request
+        require(!request.approvals[msg.sender])
+
+        // The address must no vote again
+        request.approvals[msg.sender] = true;
+        // The counter of approvals must be incremented
+        request.approvalCount++;
+    }
 }
