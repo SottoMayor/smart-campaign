@@ -14,6 +14,7 @@ contract Campaign {
     uint public minimumAmount;
     mapping(address => bool) public approvers;
     Request[] public requests;
+    uint public approversCount;
 
     // Modifiers should be defined above the constructor, as a convention...
 
@@ -39,6 +40,9 @@ contract Campaign {
         // Include the address in the mapping of approvers.
         /// BTW, we are using mapping stead of array because this approach is cheaper.
         approvers[msg.sender] = true;
+
+        // Save in the contract the total amount of contributers
+        approversCount++;
     }
 
     // Once the manager (and only the manager) creates a request, he want to...
