@@ -50,7 +50,8 @@ contract Campaign {
                 description: description,
                 value: value,
                 recipient: recipient,
-                complete: false
+                complete: false,
+                approvalCount: 0
             });
 
             // put this new request in the list of requests
