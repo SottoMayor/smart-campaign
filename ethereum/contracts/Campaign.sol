@@ -2,6 +2,11 @@ pragma solidity ^0.4.17;
 
 contract CampaignFactory {
     address[] public deployedCampaigns;
+
+    function getDeployedCampaigns() public view returns (address[]) {
+        return deployedCampaigns;
+    }
+
 }
 
 contract Campaign {
