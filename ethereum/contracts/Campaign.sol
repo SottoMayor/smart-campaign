@@ -37,7 +37,7 @@ contract Campaign {
 
     // Only managers can access function with this modifier.
     modifier restricted () {
-        require(manager === msg.sender);
+        require(manager == msg.sender);
         _;
     }
 
@@ -64,7 +64,7 @@ contract Campaign {
 
     // Once the manager (and only the manager) creates a request, he want to...
     function createRequest(string description, uint value, address recipient)
-        public modifier {
+        public restricted {
             // create a request 
             // OBS: It must be marked as memory because this function is creating a data structure available only on memory
             Request memory newRequest = Request({
@@ -86,7 +86,7 @@ contract Campaign {
         // The address should be inside the mapping that controls the contributors
         require(approvers[msg.sender]);
         // The address should not vote again in the same request
-        require(!request.approvals[msg.sender])
+        require(!request.approvals[msg.sender]);
 
         // The address must no vote again
         request.approvals[msg.sender] = true;
@@ -104,7 +104,7 @@ contract Campaign {
         require(!request.complete)
 
         // Transfer the money to the recipient of this request
-        request.recipient.transfer(request.value)
+        request.recipient.transfer(request.value);
         // The request must be set as completed
         request.complete = true;
     }
