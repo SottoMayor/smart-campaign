@@ -76,4 +76,19 @@ contract Campaign {
         // The counter of approvals must be incremented
         request.approvalCount++;
     }
+
+    // Once the manager finalize the request...
+    function finalizeRequest(uint index) public restricted {
+        Request storage request = requests[index];
+
+        // The majoraty of contributers must have approved the request
+        require(request.approvalCount > (approversCount/2));
+        // The request must not be completed
+        require(!request.complete)
+
+        // Transfer the money to the recipient of this request
+        request.recipient.transfer(request.value)
+        // The request must be set as completed
+        request.complete = true;
+    }
 }
