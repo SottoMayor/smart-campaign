@@ -12,10 +12,27 @@ let campaignAddress;
 let campaign;
 
 beforeEach(async () => {
+    // Get all test accounts
     accounts = await web3.eth.getAccounts();
+
+    // Deployment of the Factory
     factory = await new web3
     .eth
     .Contract(JSON.parse(compiledFactory.interface))
     .deploy({ data: compiledFactory.bytecode })
     .send({ from: accounts[0], gas: '1000000'})
+
+    // Deployment of the Campaign through the Factory
+    await factory
+    .methods
+    .createCampaign('100')
+    .send({ from: accounts[0], gas: '1000000'});
+
+    // Retrieving the Campaign address
+    [campaignAddress] = await factory.methods.getDeployedCampaigns().call();
+
+    // Retrieving the Campaign (Contract) of the blockchain
+    campaign = await new web3
+    .eth
+    .Contract(JSON.parse(compiledCampaign.interface), campaignAddress);
 })
