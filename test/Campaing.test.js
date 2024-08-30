@@ -37,3 +37,12 @@ beforeEach(async () => {
     .eth
     .Contract(JSON.parse(compiledCampaign.interface), campaignAddress);
 })
+
+describe('Campaigns', () => {
+
+    it('deploys the contracts', async () => {
+        assert.ok(factory.options.address);
+        assert.ok(campaign.options.address);
+    })
+
+})
