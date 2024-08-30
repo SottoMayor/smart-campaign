@@ -101,7 +101,7 @@ contract Campaign {
         // The majoraty of contributers must have approved the request
         require(request.approvalCount > (approversCount/2));
         // The request must not be completed
-        require(!request.complete)
+        require(!request.complete);
 
         // Transfer the money to the recipient of this request
         request.recipient.transfer(request.value);
