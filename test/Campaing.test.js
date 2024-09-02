@@ -46,17 +46,26 @@ describe('Campaigns', () => {
     })
 
     it('marks caller as the campaign manager', async () => {
-        const manager = campaign.methods.manager().call();
+        const manager = await campaign.methods.manager().call();
         
         assert.equal(accounts[0], manager);
     })
 
     it('allows people to contribute money and marks them as approvers', async () => {
         const contributor = accounts[1];
-        await campaign.methods.contribuite().send({value: '200', from: contributor});
+        await campaign.methods.contribute().send({value: '200', from: contributor});
         const isContributor = await campaign.methods.approvers(contributor).call(); // boolean
 
         assert(isContributor);
+    })
+
+    it('requires a minimum contribution', async () => {
+        try{
+            await campaign.methods.contribute().send({value: '5', from: accounts[1]});
+            assert(false) // Forcing the failure if the line above doesn't break 
+        }catch(err){
+            assert(err) // actually, it expects to the error occurs!
+        }
     })
 
 })
