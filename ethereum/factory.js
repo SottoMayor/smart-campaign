@@ -1,0 +1,12 @@
+import CampaingFactory from './build/CampaignFactory.json';
+import web3 from './web3';
+require('dotenv').config()
+
+const instance = new web3
+.eth
+.Contract(
+    JSON.parse(CampaingFactory.interface), 
+    process.env.SMART_CONTRACT_ADDRESS
+)
+
+export default instance
