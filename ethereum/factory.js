@@ -1,6 +1,6 @@
 import CampaingFactory from './build/CampaignFactory.json';
 import web3 from './web3';
-require('dotenv').config()
+require('dotenv').config({path: '../.env'})
 
 const instance = new web3
 .eth

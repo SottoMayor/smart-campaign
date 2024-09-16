@@ -1,10 +1,7 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const { Web3 } = require("web3");
 const compiledFactory = require("./build/CampaignFactory.json");
-require('dotenv').config()
-
-  console.log( process.env.MNEMONIC,
-    `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`)
+require('dotenv').config({path: '../.env'})
 
 const provider = new HDWalletProvider(
   process.env.MNEMONIC,
