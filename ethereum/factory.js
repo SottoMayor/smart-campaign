@@ -6,7 +6,7 @@ const instance = new web3
 .eth
 .Contract(
     JSON.parse(CampaingFactory.interface), 
-    process.env.SMART_CONTRACT_ADDRESS
+    process.env.NEXT_PUBLIC_SMART_CONTRACT_ADDRESS 
 )
 
 export default instance
