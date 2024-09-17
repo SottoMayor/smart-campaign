@@ -3,11 +3,16 @@ import factory from '../ethereum/factory';
 
 
 const index = () => {
-    useEffect(async () => {
-        const campaings = await factory.methods.getDeployedCampaigns().call();
+  useEffect(() => {
+    const loadContract = async () => {
+      const campaings = await factory.methods.getDeployedCampaigns().call();
 
-        console.log(campaings)
-    }, [])
+      console.log(campaings)
+    }
+
+    loadContract()
+    
+}, [])
 
   return (
     <div>index</div>
