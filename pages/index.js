@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Card } from 'semantic-ui-react'
 import factory from '../ethereum/factory';
+import 'semantic-ui-css/semantic.min.css'
 
 export default class CampaignIndex extends Component {
   static async getInitialProps() {
@@ -10,9 +12,21 @@ export default class CampaignIndex extends Component {
       return { campaings }
   }
 
+  renderCampaings() {
+    const items = this.props.campaings.map(address => (
+      {
+        header: address,
+        description: 'Link to go to the campaing!',
+        fluid: true
+      }
+    ))
+
+    return <Card.Group items={items} />
+  }
+
   render() {
     return (
-      <div>{this.props.campaings[0]}</div>
+      <div>{this.renderCampaings()}</div>
     )
   }
 }
