@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react'
 import factory from '../ethereum/factory';
 
-
-const index = () => {
-  useEffect(() => {
-    const loadContract = async () => {
-      const campaings = await factory.methods.getDeployedCampaigns().call();
+export default class CampaignIndex extends Component {
+  static async getInitialProps() {
+    const campaings = await factory.methods.getDeployedCampaigns().call();
 
       console.log(campaings)
-    }
 
-    loadContract()
-    
-}, [])
+      return { campaings }
+  }
 
-  return (
-    <div>index</div>
-  )
+  render() {
+    return (
+      <div>{this.props.campaings[0]}</div>
+    )
+  }
 }
-
-export default index
