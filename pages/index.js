@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button } from 'semantic-ui-react'
 import factory from '../ethereum/factory';
 import 'semantic-ui-css/semantic.min.css'
+import Layout from '../components/layout/layout';
 
 export default class CampaignIndex extends Component {
   static async getInitialProps() {
@@ -26,12 +27,14 @@ export default class CampaignIndex extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderCampaings()}
-        <Button
-          content="Create Campaing" icon="add circle" primary
-        />  
-      </div>
+      <Layout>
+        <div>
+          {this.renderCampaings()}
+          <Button
+            content="Create Campaing" icon="add circle" primary
+          />  
+        </div>
+      </Layout>
     )
   }
 }
