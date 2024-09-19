@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button } from 'semantic-ui-react'
 import factory from '../ethereum/factory';
 import 'semantic-ui-css/semantic.min.css'
-import Layout from '../components/layout/layout';
+import Layout from '../components/Layout/Layout';
 
 export default class CampaignIndex extends Component {
   static async getInitialProps() {
