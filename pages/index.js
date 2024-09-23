@@ -17,7 +17,7 @@ export default class CampaignIndex extends Component {
     const items = this.props.campaings.map(address => (
       {
         header: address,
-        description: 'Link to go to the campaing!',
+        description: (<Link href={`/campaings/${address}`}><a>View campaing!</a></Link>),
         fluid: true
       }
     ))
