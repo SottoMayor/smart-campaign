@@ -3,11 +3,14 @@ import Layout from '../../components/Layout/Layout'
 import { Form, Button, Input, Message } from 'semantic-ui-react'
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { useRouter } from 'next/router';
 
 const CampaingNew = () => {
     const [amount, setAmount] = useState(0);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const amountHandler = (event) => setAmount(event.target.value)
 
@@ -27,6 +30,8 @@ const CampaingNew = () => {
                 from: accounts[0],
                 //gas: '' // Metamask handles it for us!
             })
+
+            router.push('/');
         }catch(error){
             setError(error.message)
         }
