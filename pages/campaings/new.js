@@ -16,7 +16,7 @@ const CampaingNew = () => {
 
         await factory
         .methods
-        .createCampaing(amount)
+        .createCampaign(amount)
         .send({
             from: accounts[0],
             //gas: '' // Metamask handles it for us!
