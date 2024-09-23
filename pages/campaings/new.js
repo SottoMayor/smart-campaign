@@ -7,11 +7,15 @@ import web3 from '../../ethereum/web3';
 const CampaingNew = () => {
     const [amount, setAmount] = useState(0);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const amountHandler = (event) => setAmount(event.target.value)
 
     const onSubmit = async (event) => {
         event.preventDefault();
+
+        setLoading(true);
+        setError('');
 
         try{
             const accounts = await web3.eth.getAccounts();
@@ -27,6 +31,7 @@ const CampaingNew = () => {
             setError(error.message)
         }
 
+        setLoading(false);
     }
 
   return (
@@ -39,7 +44,7 @@ const CampaingNew = () => {
                 <Input value={amount} onChange={amountHandler} label="amount in WEI" labelPosition='right'/>
             </Form.Field>
 
-            <Button primary>Create!</Button>
+            <Button loading={loading} primary>Create!</Button>
 
             <Message error header="Ooops!" content={error}/>
         </Form>
