@@ -120,4 +120,8 @@ contract Campaign {
             manager
         );
     }
+
+    function getRequestsAccount() public view return (uint) {
+        return requests.length;
+    }
 }
