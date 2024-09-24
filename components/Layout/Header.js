@@ -24,7 +24,7 @@ const Header = () => {
           </a>
         </Link>
 
-        <Link href='/campaings/new'
+        <Link href='/campaigns/new'
           name='newCampaign'
         >
           <a className='item'>

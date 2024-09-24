@@ -21,7 +21,7 @@ While working in the /ethereum/factory.js file, I encountered an issue where the
 The error occurred in this snippet:
 ```bash
 const instance = new web3.eth.Contract(
-    JSON.parse(CampaingFactory.interface), 
+    JSON.parse(CampaignFactory.interface), 
     process.env.NEXT_PUBLIC_SMART_CONTRACT_ADDRESS
 );
 ```
@@ -69,7 +69,7 @@ const accounts = await web3.eth.getAccounts();
 
 await factory
 .methods
-.createCampaing(amount)
+.createCampaign(amount)
 .send({
     from: accounts[0],
     //gas: '' // Metamask handles it for us!

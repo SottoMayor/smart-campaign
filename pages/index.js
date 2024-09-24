@@ -6,18 +6,18 @@ import Link from 'next/link';
 
 export default class CampaignIndex extends Component {
   static async getInitialProps() {
-    const campaings = await factory.methods.getDeployedCampaigns().call();
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
 
-      console.log(campaings)
+      console.log(campaigns)
 
-      return { campaings }
+      return { campaigns }
   }
 
-  renderCampaings() {
-    const items = this.props.campaings.map(address => (
+  renderCampaigns() {
+    const items = this.props.campaigns.map(address => (
       {
         header: address,
-        description: (<Link href={`/campaings/${address}`}><a>View campaing!</a></Link>),
+        description: (<Link href={`/campaigns/${address}`}><a>View campaign!</a></Link>),
         fluid: true
       }
     ))
@@ -29,16 +29,16 @@ export default class CampaignIndex extends Component {
     return (
       <Layout>
         <div>
-          <h3>Open Campaings</h3>
-          <Link href="/campaings/new">
+          <h3>Open Campaigns</h3>
+          <Link href="/campaigns/new">
             <a>
               <Button
-                content="Create Campaing" floated='right' icon="add circle" primary
+                content="Create Campaign" floated='right' icon="add circle" primary
               /> 
             </a>
           </Link>
           
-          {this.renderCampaings()}
+          {this.renderCampaigns()}
         </div>
       </Layout>
     )
