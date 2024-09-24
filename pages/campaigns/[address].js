@@ -10,4 +10,10 @@ const CampaignDetails = () => {
   )
 }
 
+CampaignDetails.getInitialProps = async (props) => {
+ console.log(props.query.address)
+
+ return {}
+}
+
 export default CampaignDetails;
