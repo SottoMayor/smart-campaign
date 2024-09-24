@@ -113,7 +113,7 @@ contract Campaign {
         uint, uint, uint, uint, address
     ) {
         return (
-            mininumContribution,
+            minimumAmount,
             this.balance,
             requests.length,
             approversCount,
@@ -121,7 +121,7 @@ contract Campaign {
         );
     }
 
-    function getRequestsAccount() public view return (uint) {
+    function getRequestsAccount() public view returns (uint) {
         return requests.length;
     }
 }
