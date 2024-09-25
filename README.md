@@ -39,6 +39,42 @@ Make sure your .env.local file includes the correct variable:
 NEXT_PUBLIC_SMART_CONTRACT_ADDRESS=your_smart_contract_address_here
 ```
 
+### Problem 3: "TypeError: Do not know how to serialize a BigInt"
+
+While working in the `[address].js` file, I encountered an issue when trying to return an object from the `getInitialProps` method in NEXT.js. The `summary` object is fetched from the Campaign smart contract and contains general information where the first 4 properties are `uint` and the last is an `address`.
+
+Here is the relevant code snippet:
+
+```javascript
+// Returns an object, keys are non-negative integers
+const summary = await campaign.methods.getSummary().call();
+
+return {
+  minimumContribution: summary[0],
+  balance: summary[1],
+  requestsCount: summary[2],
+  approversCount: summary[3],
+  manager: summary[4],
+};
+```
+
+The error occurred when trying to return the summary properties in the getInitialProps method:
+
+```
+TypeError: Do not know how to serialize a BigInt
+```
+
+#### Solution:
+To resolve this issue, I added a fix at the top of the `getInitialProps` function to properly serialize the BigInt values to numbers or strings:
+
+```
+// Fixing the "TypeError: Do not know how to serialize a BigInt" issue.
+BigInt.prototype.toJSON = function () {
+  const int = Number.parseInt(this.toString());
+  return int ?? this.toString();
+};
+```
+
 ## Side Notes
 
 ### Side Note 1: Understanding the <Head /> Component in NEXT.js and Improving the SEO
