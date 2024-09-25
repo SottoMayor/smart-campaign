@@ -65,13 +65,15 @@ TypeError: Do not know how to serialize a BigInt
 ```
 
 #### Solution:
-To resolve this issue, I added a fix at the top of the `getInitialProps` function to properly serialize the BigInt values to numbers or strings:
+To resolve this issue, I converted the BigInt values to strings before returning them in the object, ensuring proper serialization:
 
 ```
-// Fixing the "TypeError: Do not know how to serialize a BigInt" issue.
-BigInt.prototype.toJSON = function () {
-  const int = Number.parseInt(this.toString());
-  return int ?? this.toString();
+return {
+  minimumContribution: summary[0].toString(),  // Convert BigInt to string
+  balance: summary[1].toString(),              // Convert BigInt to string
+  requestsCount: summary[2].toString(),        // Convert BigInt to string
+  approversCount: summary[3].toString(),       // Convert BigInt to string
+  manager: summary[4],                         // Manager is already a string (address)
 };
 ```
 
