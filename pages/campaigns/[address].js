@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import campaignInstance from '../../ethereum/campaign';
 import { Card } from 'semantic-ui-react'
+import web3 from '../../ethereum/web3';
 
 const CampaignDetails = (props) => {
 
@@ -18,7 +19,31 @@ const CampaignDetails = (props) => {
       {
         header: manager,
         meta: 'Address of Manager',
-        description: 'The author of this campaign and can create requests to withdraw money',
+        description: 'The author of this campaign and can create requests to withdraw money.',
+        style: { overflowWrap: 'break-word' }
+      },
+      {
+        header: minimumContribution,
+        meta: 'Minimum Contribution (Wei)',
+        description: 'You must contribute at least this much wei to became an approver.',
+        style: { overflowWrap: 'break-word' }
+      },
+      {
+        header: requestsCount,
+        meta: 'Number of Requests',
+        description: 'A request tries to withdraw a money from the contract. Requests must be approved by approvers.',
+        style: { overflowWrap: 'break-word' }
+      },
+      {
+        header: approversCount,
+        meta: 'Number of approvers',
+        description: 'Number of people who have already donated to campaign.',
+        style: { overflowWrap: 'break-word' }
+      },
+      {
+        header: web3.utils.fromWei(balance, 'ether'),
+        meta: 'Campaign balance (ether)',
+        description: 'How much money this campaign has left to spend.',
         style: { overflowWrap: 'break-word' }
       }
     ]
@@ -36,22 +61,16 @@ const CampaignDetails = (props) => {
 
 CampaignDetails.getInitialProps = async (props) => {
 
-  // Fixing the " TypeError: Do not know how to serialize a BigInt" issue.
-  BigInt.prototype.toJSON = function () {
-    const int = Number.parseInt(this.toString());
-    return int ?? this.toString();
-  };
-
  const campaign = campaignInstance(props.query.address);
 
  // Returns an object, your keys are non-negative intergers
  const summary = await campaign.methods.getSummary().call();
 
  return {
-  minimumContribution: summary[0],
-  balance: summary[1],
-  requestsCount: summary[2],
-  approversCount: summary[3],
+  minimumContribution: summary[0].toString(),
+  balance: summary[1].toString(),
+  requestsCount: summary[2].toString(),
+  approversCount: summary[3].toString(),
   manager: summary[4],
  }
 }
