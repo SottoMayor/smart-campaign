@@ -5,7 +5,7 @@ import web3 from '../ethereum/web3';
 import { useRouter } from "next/router";
 
 const Contribute = (props) => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const router = useRouter();
@@ -30,7 +30,7 @@ const Contribute = (props) => {
             setErrorMessage(error.message)
         }
         setLoading(false)
-        setValue(0)
+        setValue('')
     }
 
   return (

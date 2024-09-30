@@ -6,7 +6,7 @@ import web3 from '../../ethereum/web3';
 import { useRouter } from 'next/router';
 
 const CampaignNew = () => {
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
