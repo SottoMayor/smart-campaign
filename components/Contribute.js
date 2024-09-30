@@ -17,6 +17,8 @@ const Contribute = (props) => {
                 from: accounts[0],
                 value: web3.utils.toWei(value, 'ether')
             });
+            // Refreshing the page
+            await router.replace(`/campaigns/${props.address}`);
         }catch(error){
 
         }
