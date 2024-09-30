@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import campaignInstance from '../../ethereum/campaign';
-import { Card } from 'semantic-ui-react'
+import { Card, Grid } from 'semantic-ui-react'
 import web3 from '../../ethereum/web3';
 import Contribute from '../../components/Contribute';
 
@@ -55,8 +55,18 @@ const CampaignDetails = (props) => {
   return (
     <Layout>
       <div>CampaignDetails</div>
-      {renderCards()}
-      <Contribute/>
+      <Grid>
+
+        <Grid.Column width={10}>
+          {renderCards()}
+        </Grid.Column>
+
+        <Grid.Column width={6}>
+          <Contribute/>
+        </Grid.Column>
+
+      </Grid>
+      
     </Layout>
   )
 }
