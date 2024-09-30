@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
 import Campaign from '../ethereum/campaign';
 import web3 from '../ethereum/web3';
+import { useRouter } from "next/router";
 
 const Contribute = (props) => {
     const [value, setValue] = useState(0);
+    const router = useRouter();
 
     const submitHandler = async (event) => {
         event.preventDefault();
