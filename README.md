@@ -113,3 +113,19 @@ await factory
     //gas: '' // Metamask handles it for us!
 })
 ```
+
+### Side Note 3: How to safely reload a page with Next.js
+
+To safely reload a page in Next.js, you should use Next's router and push to the same page you're currently on. For example, if you're on `/users/` and want to reload the page, use `router.replace('/users')`. The `window.location.reload` method also works, but it reloads the entire page, potentially causing some in-memory data to be lost.   
+
+I used this approach in `/components/Contribute.js`.
+
+### Side Note 4: Handling inputs for Ether or Wei values
+
+When working with inputs that handle values of Ether or Wei to be passed to a smart contract, the state type that manages this input should be a `string`, and the default value in `setValue` should be `''` (an empty string). If we use the `number` type and the default value is `0`, every time the page with this form loads, the number `0` will always be there by default, which can negatively impact the user experience.   
+
+I used this approach in `/components/Contribute.js` and `/pages/campaings/new.js`.
+
+### Side Note 5: Dynamic parameters for nested routes
+
+Inside the `users` folder, a `[id].js` file will expect a dynamic user ID in the URL, like `/users/123`, where `123` is dynamic. If additional segments need to follow this dynamic path, it’s a good idea to refactor the page structure. The `[id].js` file should become a folder `[id]`, and inside that folder, you will have an `index.js` for the `/users/123` path and another file `xyz.js` for the `/users/123/xyz` path.
