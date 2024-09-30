@@ -1,9 +1,10 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import campaignInstance from '../../ethereum/campaign';
-import { Card, Grid } from 'semantic-ui-react'
+import { Card, Grid, Button } from 'semantic-ui-react'
 import web3 from '../../ethereum/web3';
 import Contribute from '../../components/Contribute';
+import Link from 'next/link';
 
 const CampaignDetails = (props) => {
 
@@ -59,6 +60,13 @@ const CampaignDetails = (props) => {
 
         <Grid.Column width={10}>
           {renderCards()}
+          <Link href={`/campaigns/${props.address}/requests`}>
+            <a>
+              <Button primary>
+                View Requests
+              </Button>
+            </a>
+          </Link>
         </Grid.Column>
 
         <Grid.Column width={6}>
