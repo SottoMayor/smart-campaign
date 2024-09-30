@@ -62,7 +62,7 @@ const CampaignDetails = (props) => {
         </Grid.Column>
 
         <Grid.Column width={6}>
-          <Contribute/>
+          <Contribute address={props.address}/>
         </Grid.Column>
 
       </Grid>
@@ -79,6 +79,7 @@ CampaignDetails.getInitialProps = async (props) => {
  const summary = await campaign.methods.getSummary().call();
 
  return {
+  address: props.query.address,
   minimumContribution: summary[0].toString(),
   balance: summary[1].toString(),
   requestsCount: summary[2].toString(),
