@@ -77,6 +77,47 @@ return {
 };
 ```
 
+### Problem 4: Solidity does not accept returning an array of structs all at once
+
+This error occurred in the `/campaigns/[address]/requests` page, specifically in the `getInitialProps` function. Because solidity does not accept returning an array of structs all at once, _you first need to know the size of that array and then iterate to call each struct one by one_. While this is not an ideal strategy, it works. But, in this approach I encountered two issues:
+
+1. When obtaining the size of an array, it comes in the format of BigInt. Therefore, it needs to be converted to an integer:
+
+   ```
+   const requestCountBigInt = await campaign.methods.getRequestsAccount().call();
+   const requestCount = parseInt(requestCountBigInt.toString());
+   ```
+
+2. The value of `rawRequests` is resolved by a promise and returns an array. _I cannot directly return this array_; I need to do another map to adjust the BigInt values to strings.
+
+   Here is the complete code in `getInitialProps` function:
+
+   ```
+   requests.getInitialProps = async (props) => {
+     const { address } = await props.query;
+
+     const campaign = Campaign(address);
+     const requestCountBigInt = await campaign.methods.getRequestsAccount().call();
+     const requestCount = parseInt(requestCountBigInt.toString());
+
+     const rawRequests = await Promise.all(
+       Array(requestCount).fill()
+       .map((_, index) => campaign.methods.requests(index).call())
+     );
+
+     const reqs = rawRequests.map(element => ({
+       description: element.description,
+       value: element.value.toString(),
+       recipient: element.recipient,
+       complete: element.complete,
+       approvalCount: element.approvalCount.toString()
+     }));
+
+     return { address, reqs, requestCount };
+   };
+   ```
+
+
 ## Side Notes
 
 ### Side Note 1: Understanding the <Head /> Component in NEXT.js and Improving the SEO
