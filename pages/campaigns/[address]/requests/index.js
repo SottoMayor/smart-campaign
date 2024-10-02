@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../../../../components/Layout/Layout'
 import Link from 'next/link'
 import { Button } from 'semantic-ui-react';
+import Campaign from '../../../../ethereum/campaign';
 
 const requests = (props) => {
  
@@ -28,9 +29,24 @@ const requests = (props) => {
 requests.getInitialProps = async (props) => {
   const { address } = await props.query;
 
-  console.log(address)
+  const campaign = Campaign(address)
+  const requestCountBigInt = await campaign.methods.getRequestsAccount().call();
+  const requestCount = parseInt(requestCountBigInt.toString())
 
-  return { address }
+  const rawRequests = await Promise.all(
+    Array(requestCount).fill()
+    .map((_, index) => campaign.methods.requests(index).call())
+  )
+
+  const reqs = rawRequests.map(element => ({
+    description: element.description,
+    value: element.value.toString(),
+    recipient: element.recipient,
+    complete: element.complete,
+    approvalCount: element.approvalCount.toString()
+  }));
+
+  return { address, reqs, requestCount }
 }
 
 export default requests
