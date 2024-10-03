@@ -1,14 +1,13 @@
 import React from 'react'
 import Layout from '../../../../components/Layout/Layout'
 import Link from 'next/link'
-import { Button, Table } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import Campaign from '../../../../ethereum/campaign';
+import RequestTable from '../../../../components/RequestTable';
 
 const requests = (props) => {
  
   const { address } = props;
-
-  const { Header, Row, HeaderCell } = Table
 
   return (
     <Layout>
@@ -24,19 +23,8 @@ const requests = (props) => {
           </Button> 
         </a>
       </Link>
-      <Table>
-        <Header>
-          <Row>
-            <HeaderCell>ID</HeaderCell>
-            <HeaderCell>Description</HeaderCell>
-            <HeaderCell>Amount</HeaderCell>
-            <HeaderCell>Recipient</HeaderCell>
-            <HeaderCell>Approval Count</HeaderCell>
-            <HeaderCell>Approve</HeaderCell>
-            <HeaderCell>Finalize</HeaderCell>
-          </Row>
-        </Header>
-      </Table>
+
+      <RequestTable reqs={props.reqs} address={props.address}/>
     </Layout>
   )
 }
