@@ -5,7 +5,7 @@ import web3 from '../ethereum/web3';
 const RequestRow = (props) => {
 
     const { Row, Cell } = Table
-    const { id, request: { description, value, recipient, complete, approvalCount } } = props
+    const { id, approversCount, request: { description, value, recipient, complete, approvalCount } } = props
 
   return (
     <Row>
@@ -13,7 +13,7 @@ const RequestRow = (props) => {
         <Cell>{description}</Cell>
         <Cell>{web3.utils.fromWei(value, 'ether')}</Cell>
         <Cell>{recipient}</Cell>
-        <Cell>{approvalCount}</Cell>
+        <Cell>{approvalCount}/{approversCount}</Cell>
         <Cell>{complete ? 'true' : 'false'}</Cell>
         <Cell>COMPLETE!!!</Cell>
     </Row>

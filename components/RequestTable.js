@@ -13,6 +13,7 @@ const RequestTable = (props) => {
         id={index}
         key={index}
         address={props.address}
+        approversCount={props.approversCount}
         />
       ))
     }

@@ -24,7 +24,11 @@ const requests = (props) => {
         </a>
       </Link>
 
-      <RequestTable reqs={props.reqs} address={props.address}/>
+      <RequestTable 
+      reqs={props.reqs}
+      address={props.address} 
+      approversCount={props.approversCount}
+      />
     </Layout>
   )
 }
@@ -35,6 +39,9 @@ requests.getInitialProps = async (props) => {
   const campaign = Campaign(address)
   const requestCountBigInt = await campaign.methods.getRequestsAccount().call();
   const requestCount = parseInt(requestCountBigInt.toString())
+
+  const approversCountBigInt = await campaign.methods.approversCount().call();
+  const approversCount = parseInt(approversCountBigInt.toString())
 
   const rawRequests = await Promise.all(
     Array(requestCount).fill()
@@ -49,7 +56,7 @@ requests.getInitialProps = async (props) => {
     approvalCount: element.approvalCount.toString()
   }));
 
-  return { address, reqs, requestCount }
+  return { address, reqs, requestCount, approversCount }
 }
 
 export default requests
