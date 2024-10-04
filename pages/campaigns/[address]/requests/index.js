@@ -7,18 +7,18 @@ import RequestTable from '../../../../components/RequestTable';
 
 const requests = (props) => {
  
-  const { address } = props;
+  const { address, requestCount } = props;
 
   return (
     <Layout>
-      <h3>requests</h3>
+      <h3>Requests</h3>
 
       <Link href={{
         pathname: '/campaigns/[address]/requests/new',
         query: { address: address },
       }}>
         <a>
-          <Button primary>
+          <Button primary style={{marginBottom: '10px'}}>
             Add Request!
           </Button> 
         </a>
@@ -29,6 +29,7 @@ const requests = (props) => {
       address={props.address} 
       approversCount={props.approversCount}
       />
+      <div>Found {requestCount} requests.</div>
     </Layout>
   )
 }
