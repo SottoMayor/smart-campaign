@@ -54,12 +54,17 @@ contract Campaign {
         // Check if the incomming amount is grather than the minimum amount
         require(msg.value > minimumAmount);
 
-        // Include the address in the mapping of approvers.
-        /// BTW, we are using mapping stead of array because this approach is cheaper.
-        approvers[msg.sender] = true;
+        // Someone can contribute more than one time, if this happens we do not want to trigger the approvers counter!
+        if(!approvers[msg.sender]) {
+            // Include the address in the mapping of approvers.
+            // BTW, we are using mapping stead of array because this approach is cheaper.
+            approvers[msg.sender] = true;
 
-        // Save in the contract the total amount of contributers
-        approversCount++;
+
+            // Save in the contract the total amount of contributers
+            approversCount++;
+        }
+        
     }
 
     // Once the manager (and only the manager) creates a request, he want to...
