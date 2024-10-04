@@ -8,6 +8,8 @@ const RequestRow = (props) => {
     const { Row, Cell } = Table
     const { id, approversCount, address, request: { description, value, recipient, complete, approvalCount } } = props
 
+    const readyToFinalize = approvalCount > approversCount / 2;
+
     const approveHandler = async () => {
       const campaign = Campaign(address)
 
@@ -23,22 +25,27 @@ const RequestRow = (props) => {
     }
 
   return (
-    <Row>
+    <Row disabled={complete} positive={readyToFinalize && !complete}>
         <Cell>{id + 1}</Cell>
         <Cell>{description}</Cell>
         <Cell>{web3.utils.fromWei(value, 'ether')}</Cell>
         <Cell>{recipient}</Cell>
         <Cell>{approvalCount}/{approversCount}</Cell>
-        <Cell>{complete ? 'true' : 'false'}</Cell>
         <Cell>
+          {
+          complete &&
           <Button color='green' basic onClick={approveHandler}>
             Approve!
           </Button>
+          }
         </Cell>
         <Cell>
-          <Button negative basic onClick={finalizeHandler}>
+          {
+            complete &&
+            <Button negative basic onClick={finalizeHandler}>
             Finalize
           </Button>
+          }
         </Cell>
     </Row>
   )
