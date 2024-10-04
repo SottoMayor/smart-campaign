@@ -15,6 +15,13 @@ const RequestRow = (props) => {
       await campaign.methods.approveRequest(id).send({ from: accounts[0] })
     }
 
+    const finalizeHandler = async () => {
+      const campaign = Campaign(address)
+
+      const accounts = await web3.eth.getAccounts();
+      await campaign.methods.finalizeRequest(id).send({ from: accounts[0] })
+    }
+
   return (
     <Row>
         <Cell>{id + 1}</Cell>
@@ -26,6 +33,11 @@ const RequestRow = (props) => {
         <Cell>
           <Button color='green' basic onClick={approveHandler}>
             Approve!
+          </Button>
+        </Cell>
+        <Cell>
+          <Button negative basic onClick={finalizeHandler}>
+            Finalize
           </Button>
         </Cell>
     </Row>
