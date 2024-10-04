@@ -1,11 +1,19 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
+import Campaign from '../ethereum/campaign';
 
 const RequestRow = (props) => {
 
     const { Row, Cell } = Table
-    const { id, approversCount, request: { description, value, recipient, complete, approvalCount } } = props
+    const { id, approversCount, address, request: { description, value, recipient, complete, approvalCount } } = props
+
+    const approveHandler = async () => {
+      const campaign = Campaign(address)
+
+      const accounts = await web3.eth.getAccounts();
+      await campaign.methods.approveRequest(id).send({ from: accounts[0] })
+    }
 
   return (
     <Row>
@@ -15,7 +23,11 @@ const RequestRow = (props) => {
         <Cell>{recipient}</Cell>
         <Cell>{approvalCount}/{approversCount}</Cell>
         <Cell>{complete ? 'true' : 'false'}</Cell>
-        <Cell>COMPLETE!!!</Cell>
+        <Cell>
+          <Button color='green' basic onClick={approveHandler}>
+            Approve!
+          </Button>
+        </Cell>
     </Row>
   )
 }
